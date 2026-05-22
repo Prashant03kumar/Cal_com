@@ -1,10 +1,16 @@
-import { Router } from 'express'
-import { cancelBooking, createBooking, listBookings } from '../controllers/bookingsController'
+import { Router } from "express";
 
-const router = Router()
+import {
+  listBookings,
+  createBooking,
+  cancelBooking,
+} from "../controllers/bookingsController";
 
-router.get('/', listBookings)
-router.post('/', createBooking)
-router.patch('/:id/cancel', cancelBooking)
+const router = Router();
 
-export default router
+// Use controller methods
+router.get("/", listBookings);
+router.post("/", createBooking);
+router.patch("/:id/cancel", cancelBooking);
+
+export default router;

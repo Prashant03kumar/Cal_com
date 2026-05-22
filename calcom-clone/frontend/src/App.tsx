@@ -1,11 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React from "react";
+import { Routes, Route, Outlet, Link } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+
+const AdminLayout: React.FC = () => {
+  return (
+    <div className="h-screen flex">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto bg-gray-50 ml-60">
+        <Outlet />
+      </main>
+    </div>
+  );
+};
+
+// Lazy-ish imports: use the placeholder pages
+import Dashboard from "./pages/admin/Dashboard";
+import EventTypeNew from "./pages/admin/EventTypeNew";
+import EventTypeEdit from "./pages/admin/EventTypeEdit";
+import Availability from "./pages/admin/Availability";
+import Bookings from "./pages/admin/Bookings";
+import BookingPage from "./pages/public/BookingPage";
+import BookingConfirm from "./pages/public/BookingConfirm";
+
+const NotFound: React.FC = () => (
+  <div className="p-6">
+    <h1 className="text-xl font-semibold">Page not found</h1>
+    <p className="mt-4">
+      <Link to="/" className="text-blue-600">
+        Go to dashboard
+      </Link>
+    </p>
+  </div>
+);
+
+const App: React.FC = () => {
+  return (
+    <Routes>
+      <Route element={<AdminLayout />}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/event-types/new" element={<EventTypeNew />} />
+        <Route path="/event-types/:id/edit" element={<EventTypeEdit />} />
+        <Route path="/availability" element={<Availability />} />
+        <Route path="/bookings" element={<Bookings />} />
+      </Route>
+
+      <Route path="/book/:slug" element={<BookingPage />} />
+      <Route path="/book/:slug/confirm" element={<BookingConfirm />} />
+
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
+
+export default App;
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "./assets/vite.svg";
+import heroImg from "./assets/hero.png";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -116,7 +171,7 @@ function App() {
       <div className="ticks"></div>
       <section id="spacer"></section>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
