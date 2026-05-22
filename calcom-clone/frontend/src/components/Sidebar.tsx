@@ -1,6 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+type SidebarProps = {
+  open: boolean;
+  onClose: () => void;
+};
+
 const linkBase = "px-3 py-2 mx-2 rounded-md flex items-center gap-3 text-sm";
 
 const GridIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -52,60 +57,86 @@ const ClockIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   return (
-    <aside className="w-60 h-screen bg-white border-r border-gray-200 flex flex-col fixed left-0 top-0">
-      <div className="px-4 py-4">
-        <div className="text-lg font-bold">📅 Cal Clone</div>
-      </div>
+    <>
+      {open && (
+        <div
+          className="fixed inset-0 z-40 bg-black/30 md:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
 
-      <nav className="flex-1 py-4 space-y-1">
-        <NavLink
-          to="/"
-          end
-          className={({ isActive }) =>
-            `${linkBase} ${isActive ? "bg-gray-100 text-gray-900 font-medium" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"}`
-          }
-        >
-          <GridIcon />
-          <span>Event Types</span>
-        </NavLink>
-
-        <NavLink
-          to="/bookings"
-          className={({ isActive }) =>
-            `${linkBase} ${isActive ? "bg-gray-100 text-gray-900 font-medium" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"}`
-          }
-        >
-          <CalendarIcon />
-          <span>Bookings</span>
-        </NavLink>
-
-        <NavLink
-          to="/availability"
-          className={({ isActive }) =>
-            `${linkBase} ${isActive ? "bg-gray-100 text-gray-900 font-medium" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"}`
-          }
-        >
-          <ClockIcon />
-          <span>Availability</span>
-        </NavLink>
-      </nav>
-
-      <div className="p-3 border-t border-gray-200 flex items-center gap-3 text-sm">
-        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-medium">
-          AJ
+      <aside
+        className={`fixed left-0 top-0 z-50 h-screen w-60 border-r border-gray-200 bg-white flex flex-col transform transition-transform duration-200 md:translate-x-0 ${
+          open ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="px-4 py-4">
+          <div className="text-lg font-bold">Scaler Scheduler</div>
         </div>
-        <div>
-          <div className="text-sm font-medium">Alex Johnson</div>
-          <div className="text-xs text-gray-500">alex@calcom.demo</div>
+
+        <nav className="flex-1 py-4 space-y-1">
+          <NavLink
+            to="/"
+            end
+            onClick={onClose}
+            className={({ isActive }) =>
+              `${linkBase} ${
+                isActive
+                  ? "bg-gray-100 text-gray-900 font-medium"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+              }`
+            }
+          >
+            <GridIcon />
+            <span>Event Types</span>
+          </NavLink>
+
+          <NavLink
+            to="/bookings"
+            onClick={onClose}
+            className={({ isActive }) =>
+              `${linkBase} ${
+                isActive
+                  ? "bg-gray-100 text-gray-900 font-medium"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+              }`
+            }
+          >
+            <CalendarIcon />
+            <span>Bookings</span>
+          </NavLink>
+
+          <NavLink
+            to="/availability"
+            onClick={onClose}
+            className={({ isActive }) =>
+              `${linkBase} ${
+                isActive
+                  ? "bg-gray-100 text-gray-900 font-medium"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+              }`
+            }
+          >
+            <ClockIcon />
+            <span>Availability</span>
+          </NavLink>
+        </nav>
+
+        <div className="p-3 border-t border-gray-200 flex items-center gap-3 text-sm">
+          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-medium">
+            AJ
+          </div>
+          <div>
+            <div className="text-sm font-medium">Alex Johnson</div>
+            <div className="text-xs text-gray-500">alex@calcom.demo</div>
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };
 
 export default Sidebar;
-export default function Sidebar() {
-  return null;
-}

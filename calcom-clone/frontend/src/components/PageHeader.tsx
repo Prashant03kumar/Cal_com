@@ -21,6 +21,3 @@ const PageHeader: React.FC<Props> = ({ title, description, action }) => {
 };
 
 export default PageHeader;
-export default function PageHeader() {
-  return null;
-}
