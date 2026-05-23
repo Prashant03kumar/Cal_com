@@ -1,0 +1,51 @@
+how to initialize data 
+# Step 1 — backend folder mein ja
+cd calcom-clone/backend
+
+# Step 2 — migration chalao (tables banengi)
+npx prisma migrate dev --name init
+
+# Step 3 — seed chalao (data dalega)
+npx prisma db seed
+
+# Step 4 — Prisma Studio kholo (browser mein data dekhne ke liye)
+npx prisma studio
+
+understand database-----------------------------------------------------------------------
+real life example
+Doctor = Alex Johnson (admin/host)
+Appointment types = "30 min checkup", "1 hour consultation"
+Doctor ki timings = Mon-Fri, 9am-5pm
+Patients = jo log booking karte hain
+
+event_types(Table)
+┌──────────┬──────────────────┬──────────────────┬───────────────────┐
+│ id       │ title            │ slug             │ duration_minutes  │
+├──────────┼──────────────────┼──────────────────┼───────────────────┤
+│ def-456  │ 30 Min Meeting   │ 30-min-meeting   │ 30                │
+│ ghi-789  │ 60 Min Consult   │ 60-min-consult   │ 60                │
+│ jkl-012  │ 15 Min Intro     │ 15-min-intro     │ 15                │
+└──────────┴──────────────────┴──────────────────┴───────────────────┘
+         ↑
+    user_id = abc-123  (Alex ka id — har row mein)
+
+availability_schedules
+┌──────────┬───────────────┬─────────────┬────────────┐
+│ id       │ name          │ timezone    │ is_default │
+├──────────┼───────────────┼─────────────┼────────────┤
+│ mno-345  │ Working Hours │ Asia/Kolkata│ true       │
+└──────────┴───────────────┴─────────────┴────────────┘
+         ↑
+    user_id = abc-123
+is_default = true matlab yahi wala use ho raha hai abhi.
+schedule_id → availability_schedules.id (kis schedule ka part hai yeh rule)
+
+users (Alex Johnson)
+│
+├──── event_types (30 Min, 60 Min, 15 Min)
+│         │
+│         └──── bookings (Rahul, Priya, Amit)
+│
+└──── availability_schedules (Working Hours)
+          │
+          └──── availability_rules (Mon 9-5, Tue 9-5, ...)
