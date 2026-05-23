@@ -16,6 +16,7 @@ app.use(
       "http://localhost:5173",
       "https://cal-com-lyart-nine.vercel.app",
       "https://pkserver.in",
+      "https://www.pkserver.in",
     ],
     credentials: true,
   }),
