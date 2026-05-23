@@ -13,6 +13,13 @@ function formatDate(dateStr: string): string {
   }).format(new Date(dateStr + "T00:00:00"));
 }
 
+function formatDateInput(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 function formatTime(timeStr: string): string {
   const [h, m] = timeStr.split(":").map(Number);
   const period = h < 12 ? "AM" : "PM";
@@ -45,7 +52,7 @@ export default function Bookings() {
     fetchBookings();
   }, []);
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = formatDateInput(new Date());
   const upcoming = useMemo(
     () => bookings.filter((b) => b.bookingDate >= today && b.status === "confirmed"),
     [bookings, today],

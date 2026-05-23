@@ -21,6 +21,13 @@ function formatDate(dateStr: string): string {
   }).format(new Date(dateStr + "T00:00:00"));
 }
 
+function formatDateInput(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 function formatTime(timeStr: string): string {
   const [h, m] = timeStr.split(":").map(Number);
   const period = h < 12 ? "AM" : "PM";
@@ -70,7 +77,7 @@ export default function BookingPage() {
     }
   }, [slug]);
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = formatDateInput(new Date());
   const availableDays = useMemo(
     () => new Set(availabilityRules.map((rule) => rule.dayOfWeek)),
     [availabilityRules],
@@ -232,7 +239,7 @@ export default function BookingPage() {
                     calMonth.getMonth(),
                     dayNum,
                   );
-                  const dateString = cellDate.toISOString().split("T")[0];
+                  const dateString = formatDateInput(cellDate);
                   const dayOfWeek = cellDate.getDay();
                   const isPast = dateString < today;
                   const isAvailableDay = availableDays.has(dayOfWeek);
