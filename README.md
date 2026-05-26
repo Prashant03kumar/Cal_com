@@ -1,9 +1,8 @@
-# Cal.com Clone
+# Cal.com[Scaler Scheduler]
 
 ## Live Demo
 
-- Frontend (Vercel): `https://your-vercel-url.vercel.app`
-- API (Render): `https://your-app.onrender.com`
+- Live: `https://pkserver.in`
 
 ## Tech Stack
 
@@ -75,9 +74,8 @@
    - `cd backend`
    - `npm install`
    - Create/update `.env`:
-     - `DATABASE_URL=postgresql://<user>:<password>@localhost:5432/calcom_clone`
+     - `DATABASE_URL`
      - `PORT=4000`
-     - `FRONTEND_URL=http://localhost:5173`
    - Run migrations and seed:
      - `npx prisma migrate dev --name init`
      - `npx prisma db seed`
@@ -89,7 +87,7 @@
    - Start frontend:
      - `npm run dev`
 4. Open app:
-   - `http://localhost:5173`
+   - `http://pkserver.in`
 
 ## API Endpoints
 
@@ -130,9 +128,7 @@
 
 1. Create Render PostgreSQL database (`calcom-clone-db`) and copy External Database URL.
 2. Set backend env vars in Render:
-   - `DATABASE_URL=<render-postgres-url>`
-   - `PORT=4000`
-   - `FRONTEND_URL=<vercel-frontend-url>`
+
 3. Create Render Web Service:
    - Root directory: `backend`
    - Build command: `npm install && npx prisma generate && npm run build`
@@ -144,7 +140,6 @@
 ### Frontend (Vercel)
 
 1. Set frontend env var:
-   - `VITE_API_URL=https://your-app.onrender.com/api`
 2. In Vercel project:
    - Root directory: `frontend`
    - Framework: `Vite`

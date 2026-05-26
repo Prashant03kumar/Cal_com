@@ -137,6 +137,8 @@ export const deleteEventType = asyncHandler(
       throw new ApiError(404, "Event type not found");
     }
 
+    await prisma.booking.deleteMany({ where: { eventTypeId: id } });
+
     await prisma.eventType.delete({ where: { id } });
     return sendNoContent(res);
   },
