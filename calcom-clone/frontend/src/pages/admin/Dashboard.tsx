@@ -82,7 +82,7 @@ export default function Dashboard() {
         action={
           <Link
             to="/event-types/new"
-            className="bg-black text-white px-4 py-2 rounded-md text-sm hover:bg-gray-800"
+            className="inline-flex whitespace-nowrap rounded-md bg-black px-4 py-2 text-sm text-white hover:bg-gray-800"
           >
             + New event type
           </Link>
